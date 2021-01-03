@@ -8,17 +8,11 @@ type Polynomial struct {
 	grade        uint
 }
 
-const precission float64 = 0.00000001
+const precission float64 = 0.0000000000001
 
 // CreateFromMap allows to create a Polynomial from a map.
 func CreateFromMap(m map[uint]float64) Polynomial {
-	var grade uint
-
-	for key := range m {
-		if key > grade {
-			grade = key
-		}
-	}
+	grade := getGradeFromMap(m)
 
 	return Polynomial{m, grade}
 }
@@ -45,9 +39,21 @@ func CreateFromSlice(s []float64) Polynomial {
 func removeTrailingZeros(s []float64) []float64 {
 	l := len(s)
 
-	if (s[l-1] - 0.) < precission {
+	if (s[l-1]*s[l-1] - 0.) < precission {
 		return removeTrailingZeros(s[:l-2])
 	}
 
 	return s
+}
+
+func getGradeFromMap(m map[uint]float64) uint {
+	var grade uint
+
+	for key := range m {
+		if key > grade {
+			grade = key
+		}
+	}
+
+	return grade
 }
