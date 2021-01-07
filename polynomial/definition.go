@@ -28,7 +28,7 @@ func CreateFromSlice(s []float64) Polynomial {
 	m := make(map[uint]float64)
 
 	for index, value := range ns {
-		if (value - 0.) > precission {
+		if checkNotZero(value) {
 			m[uint(index)] = value
 		}
 	}
@@ -39,7 +39,7 @@ func CreateFromSlice(s []float64) Polynomial {
 func removeTrailingZeros(s []float64) []float64 {
 	l := len(s)
 
-	if (s[l-1]*s[l-1] - 0.) < precission {
+	if !checkNotZero(s[l-1] * s[l-1]) {
 		return removeTrailingZeros(s[:l-2])
 	}
 

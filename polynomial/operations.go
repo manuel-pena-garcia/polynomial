@@ -108,5 +108,5 @@ func max(a uint, b uint) uint {
 }
 
 func checkNotZero(a float64) bool {
-	return (a*a - 0.) > precission
+	return a*a > precission
 }
